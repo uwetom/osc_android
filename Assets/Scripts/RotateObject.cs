@@ -4,17 +4,56 @@ using UnityEngine;
 
 public class RotateObject : MonoBehaviour
 {
+    
+    private Quaternion previousRotation;
+    private List<float> previousAngleDifferences; 
+    
+  
     // Start is called before the first frame update
     void Start()
     {
-        
+       
+       Debug.Log("hello");
+
+        previousRotation = new Quaternion(0.0f,0.0f,0.0f,0.0f);
+        previousAngleDifferences = new List<float>();
     }
 
     public void Rotate(Quaternion newRotation){
 
-       // Quaternion current = Quaternion(yRotVal,zRotVal,xRotVal);
+        transform.localRotation = newRotation;
 
-        transform.rotation = newRotation;
+        float angle = Quaternion.Angle(previousRotation, newRotation);
+
+        
+        
+        previousAngleDifferences.Add(angle);
+        
+        if(previousAngleDifferences.Count >= 30){
+			previousAngleDifferences.RemoveAt(0);
+		}
+
+
+
+        previousRotation = newRotation;
+
+
+
+        float total = 0;
+
+		for(int i = 0; i< previousAngleDifferences.Count; i++){
+			total += previousAngleDifferences[i];
+		}
+
+		float average = total/previousAngleDifferences.Count;
+        
+        Debug.Log(average);
+
 
     }
+
+   
+
+
+
 }

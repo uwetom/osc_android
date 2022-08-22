@@ -27,7 +27,9 @@ public class AccelerometerReciever : MonoBehaviour
         Quaternion newRotation = new Quaternion(-xRotVal,-zRotVal,-yRotVal,wRotVal);
 
 
-       rotationObject.GetComponent<RotateObject>().transform.localRotation= newRotation;
+       //rotationObject.GetComponent<RotateObject>().transform.localRotation= newRotation;
+
+       rotationObject.GetComponent<RotateObject>().Rotate(newRotation);
        
     }
 
