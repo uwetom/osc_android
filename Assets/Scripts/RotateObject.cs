@@ -7,6 +7,10 @@ public class RotateObject : MonoBehaviour
     
     private Quaternion previousRotation;
     private List<float> previousAngleDifferences; 
+
+    public Material stationaryMaterial;
+    public Material movingMaterial;
+    public GameObject rotatingObject;
     
   
     // Start is called before the first frame update
@@ -33,8 +37,6 @@ public class RotateObject : MonoBehaviour
 			previousAngleDifferences.RemoveAt(0);
 		}
 
-
-
         previousRotation = newRotation;
 
 
@@ -47,7 +49,16 @@ public class RotateObject : MonoBehaviour
 
 		float average = total/previousAngleDifferences.Count;
         
-        Debug.Log(average);
+
+       // Debug.Log(average);
+
+        if(average <= 0.1f){
+            rotatingObject.GetComponent<Renderer>().material = stationaryMaterial;
+        }else{
+            rotatingObject.GetComponent<Renderer>().material = movingMaterial;
+        }
+
+
 
 
     }
